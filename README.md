@@ -41,3 +41,5 @@ The following environment variables allows you to override some LDAP configurati
 * LDAP_PASSWORD_FIELD: The field name of your LDAP users used as `password` field
 
 *Note: If you are using a custom configuration volume with this variables, your configuration files might be altered. You should not use both features.*
+
+The user are authenticated thanks to the user part of the address (user@domain : user). So the LDAP_USER_FIELD should contains the usernames without the address extensions

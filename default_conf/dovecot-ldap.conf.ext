@@ -114,7 +114,7 @@ base =
 #   %u - username
 #   %n - user part in user@domain, same as %u if there's no domain
 #   %d - domain part in user@domain, empty if user there's no domain
-user_filter = (uid=%u)
+user_filter = (uid=%n)
 
 # Password checking attributes:
 #  user: Virtual user name (user@domain), if you wish to change the
@@ -132,7 +132,7 @@ pass_attrs = uid=user,userPassword=password
 #  homeDirectory=userdb_home,uidNumber=userdb_uid,gidNumber=userdb_gid
 
 # Filter for password lookups
-pass_filter = (uid=%u)
+pass_filter = (uid=%n)
 
 # Attributes and filter to get a list of all users
 #iterate_attrs = uid=user

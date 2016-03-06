@@ -17,10 +17,10 @@ if [ -n "$LDAP_BASE" ]; then
 	setLdapConf "base" "$LDAP_BASE"
 fi
 
-# Set LDAP conf: user_filter and pass_filter (ex: user_filter = (uid=%u))
+# Set LDAP conf: user_filter and pass_filter (ex: user_filter = (uid=%n))
 if [ -n "$LDAP_USER_FIELD" ]; then
-	setLdapConf "user_filter" "($LDAP_USER_FIELD=%u)"
-	setLdapConf "pass_filter" "($LDAP_USER_FIELD=%u)"
+	setLdapConf "user_filter" "($LDAP_USER_FIELD=%n)"
+	setLdapConf "pass_filter" "($LDAP_USER_FIELD=%n)"
 fi
 
 # Set LDAP conf: pass_attrs (ex: pass_attrs = uid=user,userPassword=password)
