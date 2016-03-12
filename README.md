@@ -3,7 +3,7 @@ Docker dovecot-ldap
 
 A Docker image running Dovecot on Debian stable ("jessie" at the moment) with the following modules:
 * LMTP
-* LDAP backend
+* LDAP backend (with bind auth)
 
 Interfaces
 ----------
@@ -38,8 +38,7 @@ However, you should use your own certificate and a data-only container to store 
 The following environment variables allows you to override some LDAP configurations:
 * LDAP_BASE: The base dn of the LDAP users
 * LDAP_USER_FIELD: The field name of your LDAP users used as `username` field
-* LDAP_PASSWORD_FIELD: The field name of your LDAP users used as `password` field
 
 *Note: If you are using a custom configuration volume with this variables, your configuration files might be altered. You should not use both features.*
 
-The user are authenticated thanks to the user part of the address (user@domain : user). So the LDAP_USER_FIELD should contains the usernames without the address extensions
+The user are authenticated thanks to the user part of the address (user@domain : user). So the LDAP_USER_FIELD should contains the usernames without the address extensions. The LDAP auth will use the bind method

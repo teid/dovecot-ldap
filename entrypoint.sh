@@ -24,14 +24,8 @@ if [ -n "$LDAP_USER_FIELD" ]; then
 fi
 
 # Set LDAP conf: pass_attrs (ex: pass_attrs = uid=user,userPassword=password)
-if [ -n "$LDAP_PASSWORD_FIELD" ] || [ -n "$LDAP_USER_FIELD" ]; then
-	if [ -z "$LDAP_USER_FIELD" ]; then
-		LDAP_USER_FIELD="uid"
-	fi
-	if [ -z "$LDAP_PASSWORD_FIELD" ]; then
-		LDAP_PASSWORD_FIELD="userPassword"
-	fi
-	setLdapConf "pass_attrs" "$LDAP_USER_FIELD=user,$LDAP_PASSWORD_FIELD=password"
+if [ -n "$LDAP_USER_FIELD" ]; then
+	setLdapConf "pass_attrs" "$LDAP_USER_FIELD=user"
 fi
 
 
