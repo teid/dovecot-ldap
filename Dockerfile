@@ -25,6 +25,8 @@ RUN apt-get update && apt-get install -y \
 	dovecot-imapd \
 	dovecot-lmtpd \
 	dovecot-ldap \
+	dovecot-sieve \
+	dovecot-managesieved \
 && rm -rf /var/lib/apt/lists/*
 
 # Add default conf
