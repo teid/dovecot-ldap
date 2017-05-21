@@ -2,30 +2,31 @@
 
 
 #########################################
-# Update LDAP conf
+# Update Dovecot conf
 #########################################
 
-function setLdapConf {
+function setDovecotConf {
 	KEY="$1"
 	VALUE="$2"
-	echo "Setting LDAP conf: $KEY=$VALUE"
-	sed -i "s/^\s*$KEY\s*=.*$/$KEY=$VALUE/g" /etc/dovecot/dovecot-ldap.conf.ext
+	FILE="$3"
+	echo "Setting conf: $KEY=$VALUE in ($FILE)"
+	sed -i "s/^\s*$KEY\s*=.*$/$KEY=$VALUE/g" $FILE
 }
 
 # Set LDAP conf: base (ex: base=dc=mail, dc=example, dc=org)
 if [ -n "$LDAP_BASE" ]; then
-	setLdapConf "base" "$LDAP_BASE"
+	setDovecotConf "base" "$LDAP_BASE" /etc/dovecot/dovecot-ldap.conf.ext
 fi
 
 # Set LDAP conf: user_filter and pass_filter (ex: user_filter = (uid=%n))
 if [ -n "$LDAP_USER_FIELD" ]; then
-	setLdapConf "user_filter" "($LDAP_USER_FIELD=%n)"
-	setLdapConf "pass_filter" "($LDAP_USER_FIELD=%n)"
+	setDovecotConf "user_filter" "($LDAP_USER_FIELD=%n)" /etc/dovecot/dovecot-ldap.conf.ext
+	setDovecotConf "pass_filter" "($LDAP_USER_FIELD=%n)" /etc/dovecot/dovecot-ldap.conf.ext
 fi
 
 # Set LDAP conf: pass_attrs (ex: pass_attrs = uid=user,userPassword=password)
 if [ -n "$LDAP_USER_FIELD" ]; then
-	setLdapConf "pass_attrs" "$LDAP_USER_FIELD=user"
+	setDovecotConf "pass_attrs" "$LDAP_USER_FIELD=user" /etc/dovecot/dovecot-ldap.conf.ext
 fi
 
 
