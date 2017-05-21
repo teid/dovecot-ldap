@@ -55,6 +55,8 @@ However, you should use your own certificate and a data-only container to store 
 The following environment variables allows you to override some LDAP configurations:
 * LDAP_BASE: The base dn of the LDAP users
 * LDAP_USER_FIELD: The field name of your LDAP users used as `username` field
+* SSL_KEY_PATH: The SSL private key path
+* SSL_CERT_PATH: The SSL certificate path
 
 *Note: If you are using a custom configuration volume with this variables, your configuration files might be altered. You should not use both features.*
 

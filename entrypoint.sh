@@ -10,7 +10,7 @@ function setDovecotConf {
 	VALUE="$2"
 	FILE="$3"
 	echo "Setting conf: $KEY=$VALUE in ($FILE)"
-	sed -i "s/^\s*$KEY\s*=.*$/$KEY=$VALUE/g" $FILE
+	sed -i "s#^\s*$KEY\s*=.*\$#$KEY=$VALUE#g" $FILE
 }
 
 # Set LDAP conf: base (ex: base=dc=mail, dc=example, dc=org)
@@ -29,15 +29,32 @@ if [ -n "$LDAP_USER_FIELD" ]; then
 	setDovecotConf "pass_attrs" "$LDAP_USER_FIELD=user" /etc/dovecot/dovecot-ldap.conf.ext
 fi
 
+# Set SSL resource paths
+if [ -n "$SSL_KEY_PATH" ]; then
+	setDovecotConf "ssl_key" "<$SSL_KEY_PATH" /etc/dovecot/conf.d/10-ssl.conf
+fi
+if [ -n "$SSL_CERT_PATH" ]; then
+	setDovecotConf "ssl_cert" "<$SSL_CERT_PATH" /etc/dovecot/conf.d/10-ssl.conf
+fi
 
 #########################################
 # Generate SSL certification
 #########################################
 
 CERT_FOLDER="/etc/ssl/localcerts"
-KEY_PATH="$CERT_FOLDER/imap.key.pem"
-CSR_PATH="$CERT_FOLDER/imap.csr.pem"
-CERT_PATH="$CERT_FOLDER/imap.cert.pem"
+CSR_PATH="/tmp/imap.csr.pem"
+
+if [ -n "$SSL_KEY_PATH" ]; then
+	KEY_PATH=$SSL_KEY_PATH
+else
+	KEY_PATH="$CERT_FOLDER/imap.key.pem"
+fi
+
+if [ -n "$SSL_CERT_PATH" ]; then
+	CERT_PATH=$SSL_CERT_PATH
+else
+	CERT_PATH="$CERT_FOLDER/imap.cert.pem"
+fi
 
 if [ ! -f $CERT_PATH ] || [ ! -f $KEY_PATH ]; then
 	mkdir -p $CERT_FOLDER
