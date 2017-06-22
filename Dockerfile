@@ -1,4 +1,4 @@
-From debian:latest
+From debian:jessie
 MAINTAINER Timothée Eid <timothee.eid@erizo.fr>
 
 # Set noninteractive mode for apt-get
